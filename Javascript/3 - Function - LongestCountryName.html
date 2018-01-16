@@ -1,0 +1,15 @@
+<html>
+    <script>
+        function Longest_Country_Name(countryList){
+            var maxLengthString = '';
+            for(var i=0; i < countryList.length; i++)
+                if(countryList[i].length > maxLengthString.length)
+                    maxLengthString = countryList[i];        
+            return maxLengthString;
+        }
+        
+        var countryList = ["Australia", "Germany", "United States of America"];
+        
+        alert(Longest_Country_Name(countryList));
+    </script>
+</html>

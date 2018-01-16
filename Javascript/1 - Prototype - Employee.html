@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            function Employee(firstName, lastName, salary) {
+                this.firstName = firstName;
+                this.lastName = lastName;
+                this.salary = salary;
+                this.increaseSalary = function () {
+                    this.salary += 1000;
+                };
+                this.showDetails = function () {
+                	alert('Employee Details:\r\nFirst Name: ' + this.firstName + '\r\nLast Name: ' + this.lastName + '\r\nSalary: ' + this.salary);
+                };
+            }
+            
+            var firstEmployee = new Employee("Juan", "Sanchez", 123456);
+            var secondEmployee = new Employee("Lionel", "Messi", 12345678);
+            
+            firstEmployee.showDetails();
+            secondEmployee.showDetails();
+            firstEmployee.increaseSalary();
+            firstEmployee.increaseSalary();
+            firstEmployee.showDetails();
+            secondEmployee.showDetails();
+        </script>
+    </body>
+</html>

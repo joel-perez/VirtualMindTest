@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>MultiplyBy</title>
+    </head>
+    <body>
+        <script>
+            function MultiplyBy(x){
+                return function(y){
+                    return function(z){
+                        return x * y * z;
+                    };
+                };
+            }
+            
+            var mul = MultiplyBy;
+            
+            console.log(mul(2)(3)(4)); //output: 24
+            console.log(mul(4)(3)(4)); //output: 48
+        </script>
+    </body>
+</html>
