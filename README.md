@@ -2,9 +2,13 @@
 
 Los ejercicios se encuentran en sus carpetas correspondientes (Javascript y NET)
 
-# En la carpeta Javascript, cada ejercicio esta resuelto en un archivo HTML separado para poder probarlos uno por uno (incluyen el codigo javascript directamente en su body).
+# Carpeta Javascript:
 
-# En la carpeta NET, esta el Test Generico de .NET.
+Cada ejercicio esta resuelto en un archivo HTML separado para poder probarlos uno por uno (incluyen el codigo javascript directamente en su body).
+
+# Carpeta NET:
+
+Contiene el Test Generico de .NET.
 
 El script de sql para crear la base de datos, crear la tabla User, y llenarla con datos, esta ubicado en NET/MyRestfullApp/Scripts/DB.sql
 
