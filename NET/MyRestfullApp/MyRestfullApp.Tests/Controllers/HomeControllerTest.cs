@@ -23,7 +23,7 @@ namespace MyRestfullApp.Tests.Controllers
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual("Home Page", result.ViewBag.Title);
+            Assert.AreEqual("Pagina Principal", result.ViewBag.Title);
         }
 
         #endregion Methods

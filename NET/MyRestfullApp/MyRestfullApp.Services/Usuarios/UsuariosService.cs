@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using MyRestfullApp.Data;
 using MyRestfullApp.Models;
 
@@ -10,27 +11,28 @@ namespace MyRestfullApp.Services.Usuarios
 {
     public class UsuariosService
     {
+        #region Fields
+
         private MyRestfullAppEntities _db;
+
+        #endregion Fields
+
+        #region Constructors
 
         public UsuariosService()
         {
             _db = new MyRestfullAppEntities();
         }
 
-        public List<Usuario> ObtenerUsuarios()
-        {
-            var users = _db.User.ToList();
-            var result = users.Select(user => new Usuario { Apellido = user.apellido, Email = user.email, Id = user.id, Nombre = user.nombre, Password = user.password }).ToList();
-            return result;
-        }
+        #endregion Constructors
 
-        public Usuario ObtenerUsuario(int id)
+        #region Methods
+
+        public void CrearUsuario(Usuario user)
         {
-            Usuario result = null;
-            var user = _db.User.FirstOrDefault(x => x.id == id);
-            if (user != null)
-                result = new Usuario { Apellido = user.apellido, Email = user.email, Id = user.id, Nombre = user.nombre, Password = user.password };
-            return result;
+            var newUser = new User { apellido = user.Apellido, email = user.Email, nombre = user.Nombre, password = user.Password };
+            _db.User.Add(newUser);
+            _db.SaveChanges();
         }
 
         public void EliminarUsuario(int id)
@@ -39,13 +41,6 @@ namespace MyRestfullApp.Services.Usuarios
             if (user == null)
                 return;
             _db.User.Remove(user);
-            _db.SaveChanges();
-        }
-
-        public void CrearUsuario(Usuario user)
-        {
-            var newUser = new User { apellido = user.Apellido, email = user.Email, nombre = user.Nombre, password = user.Password };
-            _db.User.Add(newUser);
             _db.SaveChanges();
         }
 
@@ -60,5 +55,23 @@ namespace MyRestfullApp.Services.Usuarios
             user.password = newUserData.Password;
             _db.SaveChanges();
         }
+
+        public Usuario ObtenerUsuario(int id)
+        {
+            Usuario result = null;
+            var user = _db.User.FirstOrDefault(x => x.id == id);
+            if (user != null)
+                result = new Usuario { Apellido = user.apellido, Email = user.email, Id = user.id, Nombre = user.nombre, Password = user.password };
+            return result;
+        }
+
+        public List<Usuario> ObtenerUsuarios()
+        {
+            var users = _db.User.ToList();
+            var result = users.Select(user => new Usuario { Apellido = user.apellido, Email = user.email, Id = user.id, Nombre = user.nombre, Password = user.password }).ToList();
+            return result;
+        }
+
+        #endregion Methods
     }
 }

@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http.Filters;
 
-namespace MyRestfullApp.Controllers
+namespace MyRestfullApp.Filters
 {
     /// <summary>
     /// Filtro de Excepciones Personalizadas

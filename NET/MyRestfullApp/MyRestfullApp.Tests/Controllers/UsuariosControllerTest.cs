@@ -19,18 +19,6 @@ namespace MyRestfullApp.Tests.Controllers
         #region Methods
 
         [TestMethod]
-        public void Delete()
-        {
-            // Arrange
-            UsuariosController controller = new UsuariosController();
-
-            // Act
-            controller.Delete(5);
-
-            // Assert
-        }
-
-        [TestMethod]
         public void Get()
         {
             // Arrange
@@ -41,9 +29,8 @@ namespace MyRestfullApp.Tests.Controllers
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(2, result.Count());
-            Assert.AreEqual("value1", result.ElementAt(0));
-            Assert.AreEqual("value2", result.ElementAt(1));
+            Assert.AreEqual(3, result.Count());
+            Assert.AreEqual("joperezr@gmail.com", result.ElementAt(0).Email);
         }
 
         [TestMethod]
@@ -53,10 +40,10 @@ namespace MyRestfullApp.Tests.Controllers
             UsuariosController controller = new UsuariosController();
 
             // Act
-            Usuario result = controller.Get(5);
+            Usuario result = controller.Get(3);
 
             // Assert
-            Assert.AreEqual(new Usuario(), result);
+            Assert.AreEqual("Messi", result.Apellido);
         }
 
         [TestMethod]
@@ -72,13 +59,26 @@ namespace MyRestfullApp.Tests.Controllers
         }
 
         [TestMethod]
+        public void Delete()
+        {
+            // Arrange
+            UsuariosController controller = new UsuariosController();
+
+            // Act
+            controller.Delete(4);
+
+            // Assert
+        }
+
+
+        [TestMethod]
         public void Put()
         {
             // Arrange
             UsuariosController controller = new UsuariosController();
 
             // Act
-            controller.Put(5, new Usuario { Password = "123456", Nombre = "Nombre Prueba", Apellido = "Apellido Prueba", Email = "email@server" + DateTime.Now.Ticks });
+            controller.Put(2, new Usuario { Password = "123456", Nombre = "Juan Martin", Apellido = "Delpotro", Email = "email@server" + DateTime.Now.Ticks });
 
             // Assert
         }

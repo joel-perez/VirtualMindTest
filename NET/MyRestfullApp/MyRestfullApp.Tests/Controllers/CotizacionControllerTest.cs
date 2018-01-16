@@ -20,19 +20,6 @@ namespace MyRestfullApp.Tests.Controllers
         #region Methods
 
         [TestMethod]
-        public void GetDolarInternal()
-        {
-            // Arrange
-            var cotizacionService = new CotizacionService("Dolar");
-
-            // Act
-            var result = cotizacionService.ObtenerCotizacion();
-
-            // Assert
-            Assert.IsNotNull(result);
-        }
-
-        [TestMethod]
         public void GetDolar()
         {
             // Arrange
@@ -46,48 +33,20 @@ namespace MyRestfullApp.Tests.Controllers
         }
 
         [TestMethod]
-        public void GetRealInternal()
+        public void GetDolarInternal()
         {
             // Arrange
-            var cotizacionService = new CotizacionService("Real");
+            var cotizacionService = new CotizacionService("Dolar");
 
             // Act
             var result = cotizacionService.ObtenerCotizacion();
-            var expectedResult = new ValorCotizacion();
 
             // Assert
-            Assert.Fail();
+            Assert.IsNotNull(result);
         }
 
         [TestMethod]
-        public void GetReal()
-        {
-            // Arrange
-            var controller = new CotizacionController();
-
-            // Act
-            var result = controller.Get("Real");
-            var expectedResult = new ValorCotizacion();
-
-            // Assert
-            Assert.Fail();
-        }
-
-        [TestMethod]
-        public void GetPesos()
-        {
-            // Arrange
-            var controller = new CotizacionController();
-
-            // Act
-            var result = controller.Get("Real");
-            var expectedResult = new ValorCotizacion();
-
-            // Assert
-            Assert.Fail();
-        }
-
-        [TestMethod]
+        [ExpectedException(typeof(NotImplementedException))]
         public void GetOther()
         {
             // Arrange
@@ -95,7 +54,48 @@ namespace MyRestfullApp.Tests.Controllers
 
             // Act
             var result = controller.Get("Other");
-            var expectedResult = new ValorCotizacion();
+
+            // Assert
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UnauthorizedAccessException))]
+        public void GetPesos()
+        {
+            // Arrange
+            var controller = new CotizacionController();
+
+            // Act
+            var result = controller.Get("Real");
+
+            // Assert
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UnauthorizedAccessException))]
+        public void GetReal()
+        {
+            // Arrange
+            var controller = new CotizacionController();
+
+            // Act
+            var result = controller.Get("Real");
+
+            // Assert
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UnauthorizedAccessException))]
+        public void GetRealInternal()
+        {
+            // Arrange
+            var cotizacionService = new CotizacionService("Real");
+
+            // Act
+            var result = cotizacionService.ObtenerCotizacion();
 
             // Assert
             Assert.Fail();
