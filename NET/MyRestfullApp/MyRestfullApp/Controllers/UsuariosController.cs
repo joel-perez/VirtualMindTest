@@ -7,7 +7,7 @@ using MyRestfullApp.Services.Usuarios;
 namespace MyRestfullApp.Controllers
 {
     /// <summary>
-    /// Controlador para Alta, Baja y Modificacion de Usuarios.
+    /// Controlador REST para Alta, Baja y Modificacion de Usuarios.
     /// </summary>
     public class UsuariosController : ApiController
     {
@@ -16,7 +16,7 @@ namespace MyRestfullApp.Controllers
         /// <summary>
         /// Elimina el usuario indicado.
         /// </summary>
-        /// <param name="id"></param>
+        [HttpDelete]
         public void Delete(int id)
         {
             new UsuariosService().EliminarUsuario(id);
@@ -25,7 +25,7 @@ namespace MyRestfullApp.Controllers
         /// <summary>
         /// Devuelve la lista de los usuarios.
         /// </summary>
-        /// <returns></returns>
+        [HttpGet]
         public IEnumerable<Usuario> Get()
         {
             return new UsuariosService().ObtenerUsuarios();
@@ -34,8 +34,7 @@ namespace MyRestfullApp.Controllers
         /// <summary>
         /// Devuelve informacion de un usuario en particular.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        [HttpGet]
         public Usuario Get(int id)
         {
             return new UsuariosService().ObtenerUsuario(id);
@@ -44,7 +43,7 @@ namespace MyRestfullApp.Controllers
         /// <summary>
         /// Crea un nuevo usuario.
         /// </summary>
-        /// <param name="user"></param>
+        [HttpPost]
         public void Post([FromBody]Usuario user)
         {
             new UsuariosService().CrearUsuario(user);
@@ -53,8 +52,7 @@ namespace MyRestfullApp.Controllers
         /// <summary>
         /// Modifica un usuario.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="user"></param>
+        [HttpPut]
         public void Put(int id, [FromBody]Usuario user)
         {
             new UsuariosService().ModificarUsuario(id, user);

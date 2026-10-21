@@ -15,15 +15,14 @@ namespace MyRestfullApp.Controllers
         #region Methods
 
         /// <summary>
-        /// Devuelve la cotizacion actual para la moneda indicada.
+        /// Devuelve la cotizacion actual para la moneda indicada (Dolar, Pesos o Real).
         /// </summary>
-        /// <param name="moneda"></param>
-        /// <returns></returns>
+        [HttpGet]
         [Route("MyRestfullApp/Cotizacion/{moneda}")]
-        public Task<ValorCotizacion> Get(string moneda)
+        public async Task<ValorCotizacion> Get(string moneda)
         {
             var cotizacionService = new CotizacionService(moneda);
-            return cotizacionService.ObtenerCotizacion();
+            return await cotizacionService.ObtenerCotizacion();
         }
 
         #endregion Methods

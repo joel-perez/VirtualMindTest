@@ -1,5 +1,6 @@
-﻿using System.Net.Http;
-using System.Text;
+﻿using System;
+using System.Configuration;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
@@ -11,26 +12,52 @@ namespace MyRestfullApp.Services.Helpers
     /// </summary>
     public class WebCommunicationHelper
     {
+        #region Fields
+
+        private readonly HttpMessageHandler _handler;
+
+        #endregion Fields
+
+        #region Constructors
+
+        public WebCommunicationHelper()
+            : this(null)
+        {
+        }
+
+        public WebCommunicationHelper(HttpMessageHandler handler)
+        {
+            _handler = handler;
+        }
+
+        #endregion Constructors
+
         #region Methods
 
         /// <summary>
-        /// Realiza una llamada POST con sus correspondientes parametros y devuelve los datos obtenidos como instancia del tipo indicado.
+        /// Crea el helper para consultar la cotizacion del dolar.
+        /// Si UsarStubBancoProvincia=true, intercepta el HTTP con la respuesta historica del Banco Provincia.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="url"></param>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
-        public static async Task<T> PerformPostWebCall<T>(string url, object parameters)
+        public static WebCommunicationHelper CrearParaCotizacionDolar()
         {
-            var handler = new HttpClientHandler();
-            var client = new HttpClient(handler);
-            var jsonData = JsonConvert.SerializeObject(parameters);
-            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var response = await client.PostAsync(url, content);
-            response.EnsureSuccessStatusCode();
-            var resultString = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<T>(resultString);
-            return result;
+            var usarStub = ConfigurationManager.AppSettings["UsarStubBancoProvincia"];
+            if (string.Equals(usarStub, "true", StringComparison.OrdinalIgnoreCase))
+                return new WebCommunicationHelper(new BancoProvinciaCotizacionStubHandler());
+            return new WebCommunicationHelper();
+        }
+
+        /// <summary>
+        /// Realiza una llamada GET y devuelve los datos obtenidos como instancia del tipo indicado.
+        /// </summary>
+        public async Task<T> PerformGetWebCall<T>(string url)
+        {
+            using (var client = _handler == null ? new HttpClient() : new HttpClient(_handler, false))
+            {
+                var response = await client.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+                var resultString = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T>(resultString);
+            }
         }
 
         #endregion Methods

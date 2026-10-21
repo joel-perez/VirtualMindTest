@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Web.Http;
+using System.Threading.Tasks;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using MyRestfullApp;
 using MyRestfullApp.Controllers;
-using MyRestfullApp.Models;
-using MyRestfullApp.Services.Cotizacion;
 
 namespace MyRestfullApp.Tests.Controllers
 {
@@ -20,28 +13,12 @@ namespace MyRestfullApp.Tests.Controllers
         #region Methods
 
         [TestMethod]
-        public void GetDolar()
+        public async Task GetDolar()
         {
-            // Arrange
             var controller = new CotizacionController();
 
-            // Act
-            var result = controller.Get("Dolar");
+            var result = await controller.Get("Dolar");
 
-            // Assert
-            Assert.IsNotNull(result);
-        }
-
-        [TestMethod]
-        public void GetDolarInternal()
-        {
-            // Arrange
-            var cotizacionService = new CotizacionService("Dolar");
-
-            // Act
-            var result = cotizacionService.ObtenerCotizacion();
-
-            // Assert
             Assert.IsNotNull(result);
         }
 
@@ -49,56 +26,24 @@ namespace MyRestfullApp.Tests.Controllers
         [ExpectedException(typeof(NotImplementedException))]
         public void GetOther()
         {
-            // Arrange
             var controller = new CotizacionController();
-
-            // Act
-            var result = controller.Get("Other");
-
-            // Assert
-            Assert.Fail();
+            controller.Get("Other").GetAwaiter().GetResult();
         }
 
         [TestMethod]
         [ExpectedException(typeof(UnauthorizedAccessException))]
         public void GetPesos()
         {
-            // Arrange
             var controller = new CotizacionController();
-
-            // Act
-            var result = controller.Get("Real");
-
-            // Assert
-            Assert.Fail();
+            controller.Get("Pesos").GetAwaiter().GetResult();
         }
 
         [TestMethod]
         [ExpectedException(typeof(UnauthorizedAccessException))]
         public void GetReal()
         {
-            // Arrange
             var controller = new CotizacionController();
-
-            // Act
-            var result = controller.Get("Real");
-
-            // Assert
-            Assert.Fail();
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(UnauthorizedAccessException))]
-        public void GetRealInternal()
-        {
-            // Arrange
-            var cotizacionService = new CotizacionService("Real");
-
-            // Act
-            var result = cotizacionService.ObtenerCotizacion();
-
-            // Assert
-            Assert.Fail();
+            controller.Get("Real").GetAwaiter().GetResult();
         }
 
         #endregion Methods

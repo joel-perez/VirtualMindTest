@@ -105,6 +105,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Controllers\UsuariosControllerTest.cs" />
+    <Compile Include="Services\CotizacionServiceTest.cs" />
+    <Compile Include="Services\UsuariosServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

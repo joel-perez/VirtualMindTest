@@ -1,25 +1,20 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 using MyRestfullApp.Models;
 
 namespace MyRestfullApp.Services.Cotizacion
 {
+    /// <summary>
+    /// Servicio de cotizacion. Selecciona la estrategia segun la moneda (Dolar, Pesos, Real).
+    /// </summary>
     public class CotizacionService
     {
         #region Constructors
 
         public CotizacionService(string moneda)
         {
-            var className = string.Concat(moneda, "CotizacionStrategy");
-            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            var firstDefinedType = assembly.DefinedTypes.FirstOrDefault(x => x.Name.Equals(className, StringComparison.InvariantCultureIgnoreCase));
-            if (firstDefinedType == null)
-                throw new NotImplementedException();
-            var typeFullName = firstDefinedType.FullName;
-            if (typeFullName != null)
-                Strategy = (ICotizacionStrategy)assembly.CreateInstance(typeFullName);
+            Strategy = CrearEstrategia(moneda);
         }
 
         #endregion Constructors
@@ -38,6 +33,18 @@ namespace MyRestfullApp.Services.Cotizacion
         public Task<ValorCotizacion> ObtenerCotizacion()
         {
             return Strategy.ObtenerCotizacion();
+        }
+
+        private static ICotizacionStrategy CrearEstrategia(string moneda)
+        {
+            if (string.Equals(moneda, "Dolar", StringComparison.OrdinalIgnoreCase))
+                return new DolarCotizacionStrategy();
+            if (string.Equals(moneda, "Pesos", StringComparison.OrdinalIgnoreCase))
+                return new PesosCotizacionStrategy();
+            if (string.Equals(moneda, "Real", StringComparison.OrdinalIgnoreCase))
+                return new RealCotizacionStrategy();
+
+            throw new NotImplementedException();
         }
 
         #endregion Methods

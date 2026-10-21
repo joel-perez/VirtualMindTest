@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using System.Web.Http;
+using MyRestfullApp.Filters;
 
 namespace MyRestfullApp
 {
@@ -9,7 +10,7 @@ namespace MyRestfullApp
 
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
+            config.Filters.Add(new CustomExceptionFilterAttribute());
 
             // Web API routes
             config.MapHttpAttributeRoutes();

@@ -21,7 +21,10 @@ namespace MyRestfullApp.Filters
             if (context.Exception is NotImplementedException)
                 context.Response = new HttpResponseMessage(HttpStatusCode.NotImplemented);
             if (context.Exception is UnauthorizedAccessException)
-                context.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                context.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized)
+                {
+                    ReasonPhrase = "Unauthorized"
+                };
         }
 
         #endregion Methods

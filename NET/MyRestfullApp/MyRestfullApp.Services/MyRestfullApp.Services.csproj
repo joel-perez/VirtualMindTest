@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\BancoProvinciaCotizacionStub.cs" />
     <Compile Include="Helpers\WebCommunicationHelper.cs" />
     <Compile Include="Cotizacion\CotizacionService.cs" />
     <Compile Include="Cotizacion\DolarCotizacionStrategy.cs" />

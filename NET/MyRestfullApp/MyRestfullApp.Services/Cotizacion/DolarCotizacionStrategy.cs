@@ -9,6 +9,26 @@ namespace MyRestfullApp.Services.Cotizacion
 {
     public class DolarCotizacionStrategy : ICotizacionStrategy
     {
+        #region Fields
+
+        private readonly WebCommunicationHelper _webCommunicationHelper;
+
+        #endregion Fields
+
+        #region Constructors
+
+        public DolarCotizacionStrategy()
+            : this(WebCommunicationHelper.CrearParaCotizacionDolar())
+        {
+        }
+
+        public DolarCotizacionStrategy(WebCommunicationHelper webCommunicationHelper)
+        {
+            _webCommunicationHelper = webCommunicationHelper;
+        }
+
+        #endregion Constructors
+
         #region Properties
 
         /// <summary>
@@ -24,15 +44,22 @@ namespace MyRestfullApp.Services.Cotizacion
         #region Methods
 
         /// <summary>
-        /// Devuelve la cotizacion del Dolar.
+        /// Devuelve la cotizacion del Dolar: GET al servicio externo, array JSON [compra, venta, fecha].
         /// </summary>
-        /// <returns></returns>
         public async Task<ValorCotizacion> ObtenerCotizacion()
         {
-            var cotizacionDolarBancoProvincia = await WebCommunicationHelper.PerformPostWebCall<string[]>(UrlBancoProvinciaCotizacionDolar, null);
-            var compra = double.Parse(cotizacionDolarBancoProvincia[0], CultureInfo.InvariantCulture);
-            var venta = double.Parse(cotizacionDolarBancoProvincia[1], CultureInfo.InvariantCulture);
+            var cotizacionDolarBancoProvincia = await _webCommunicationHelper.PerformGetWebCall<string[]>(UrlBancoProvinciaCotizacionDolar);
+            var compra = ParseImporte(cotizacionDolarBancoProvincia[0]);
+            var venta = ParseImporte(cotizacionDolarBancoProvincia[1]);
             return new ValorCotizacion { Compra = compra, Venta = venta };
+        }
+
+        private static double ParseImporte(string valor)
+        {
+            double importe;
+            if (double.TryParse(valor, NumberStyles.Any, CultureInfo.InvariantCulture, out importe))
+                return importe;
+            return double.Parse(valor, new CultureInfo("es-AR"));
         }
 
         #endregion Methods
