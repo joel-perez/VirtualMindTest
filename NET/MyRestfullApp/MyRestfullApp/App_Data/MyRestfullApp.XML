@@ -499,10 +499,8 @@
         </member>
         <member name="M:MyRestfullApp.Controllers.CotizacionController.Get(System.String)">
             <summary>
-            Devuelve la cotizacion actual para la moneda indicada.
+            Devuelve la cotizacion actual para la moneda indicada (Dolar, Pesos o Real).
             </summary>
-            <param name="moneda"></param>
-            <returns></returns>
         </member>
         <member name="T:MyRestfullApp.Controllers.HomeController">
             <summary>
@@ -517,40 +515,33 @@
         </member>
         <member name="T:MyRestfullApp.Controllers.UsuariosController">
             <summary>
-            Controlador para Alta, Baja y Modificacion de Usuarios.
+            Controlador REST para Alta, Baja y Modificacion de Usuarios.
             </summary>
         </member>
         <member name="M:MyRestfullApp.Controllers.UsuariosController.Delete(System.Int32)">
             <summary>
             Elimina el usuario indicado.
             </summary>
-            <param name="id"></param>
         </member>
         <member name="M:MyRestfullApp.Controllers.UsuariosController.Get">
             <summary>
             Devuelve la lista de los usuarios.
             </summary>
-            <returns></returns>
         </member>
         <member name="M:MyRestfullApp.Controllers.UsuariosController.Get(System.Int32)">
             <summary>
             Devuelve informacion de un usuario en particular.
             </summary>
-            <param name="id"></param>
-            <returns></returns>
         </member>
         <member name="M:MyRestfullApp.Controllers.UsuariosController.Post(MyRestfullApp.Models.Usuario)">
             <summary>
             Crea un nuevo usuario.
             </summary>
-            <param name="user"></param>
         </member>
         <member name="M:MyRestfullApp.Controllers.UsuariosController.Put(System.Int32,MyRestfullApp.Models.Usuario)">
             <summary>
             Modifica un usuario.
             </summary>
-            <param name="id"></param>
-            <param name="user"></param>
         </member>
         <member name="T:MyRestfullApp.Filters.CustomExceptionFilterAttribute">
             <summary>

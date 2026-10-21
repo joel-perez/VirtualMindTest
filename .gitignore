@@ -1,0 +1,13 @@
+/NET/MyRestfullApp/MyRestfullApp/obj
+/NET/MyRestfullApp/MyRestfullApp/bin
+/NET/MyRestfullApp/MyRestfullApp.Data/obj
+/NET/MyRestfullApp/MyRestfullApp.Data/bin
+/NET/MyRestfullApp/MyRestfullApp.Models/bin
+/NET/MyRestfullApp/MyRestfullApp.Models/obj
+/NET/MyRestfullApp/MyRestfullApp.Services/obj
+/NET/MyRestfullApp/MyRestfullApp.Services/bin
+/NET/MyRestfullApp/MyRestfullApp.Tests/obj
+/NET/MyRestfullApp/MyRestfullApp.Tests/bin
+/NET/MyRestfullApp/packages
+/NET/MyRestfullApp/.vs
+/NET/MyRestfullApp/MyRestfullApp/MyRestfullApp.csproj.user
