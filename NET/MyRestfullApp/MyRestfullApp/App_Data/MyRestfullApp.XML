@@ -4,16 +4,56 @@
         <name>MyRestfullApp</name>
     </assembly>
     <members>
+        <member name="T:MyRestfullApp.BundleConfig">
+            <summary>
+            Configuracion de los bundles de scripts y estilos de la aplicacion
+            (jQuery, Modernizr, Bootstrap y CSS del sitio).
+            </summary>
+        </member>
+        <member name="M:MyRestfullApp.BundleConfig.RegisterBundles(System.Web.Optimization.BundleCollection)">
+            <summary>
+            Registra los bundles de scripts (jQuery, Modernizr, Bootstrap) y
+            estilos (bootstrap.css, site.css) utilizados por las vistas.
+            </summary>
+            <param name="bundles">Coleccion de bundles a la que se agregan los bundles de la aplicacion.</param>
+        </member>
+        <member name="T:MyRestfullApp.FilterConfig">
+            <summary>
+            Configuracion de los filtros globales MVC de la aplicacion.
+            </summary>
+        </member>
+        <member name="M:MyRestfullApp.FilterConfig.RegisterGlobalFilters(System.Web.Mvc.GlobalFilterCollection)">
+            <summary>
+            Registra los filtros globales MVC; agrega el <see cref="T:System.Web.Mvc.HandleErrorAttribute"/>
+            para manejo de errores de las vistas.
+            </summary>
+            <param name="filters">Coleccion de filtros globales a la que se agrega el filtro de errores.</param>
+        </member>
         <member name="T:MyRestfullApp.RouteConfig">
             <summary>
-            
+            Configuracion de las rutas MVC de la aplicacion (vistas HTML).
             </summary>
         </member>
         <member name="M:MyRestfullApp.RouteConfig.RegisterRoutes(System.Web.Routing.RouteCollection)">
             <summary>
-            
+            Registra las rutas MVC: ignora los recursos .axd y define la ruta por defecto
+            {controller}/{action}/{id} apuntando a Home/Index.
             </summary>
-            <param name="routes"></param>
+            <param name="routes">Coleccion de rutas a la que se agregan las rutas MVC.</param>
+        </member>
+        <member name="T:MyRestfullApp.WebApiConfig">
+            <summary>
+            Configuracion de la Web API: filtros globales, rutas por atributo y por defecto,
+            y formateadores de contenido.
+            </summary>
+        </member>
+        <member name="M:MyRestfullApp.WebApiConfig.Register(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Registra la configuracion de la Web API: filtro global de excepciones,
+            rutas por atributo, ruta por defecto "MyRestfullApp/{controller}/{id}"
+            y soporte de text/html en el formateador JSON.
+            </summary>
+            <param name="config">Configuracion de la Web API a la que se aplican los registros.</param>
         </member>
         <member name="M:MyRestfullApp.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
             <summary>
@@ -501,17 +541,27 @@
             <summary>
             Devuelve la cotizacion actual para la moneda indicada (Dolar, Pesos o Real).
             </summary>
+            <param name="moneda">Moneda a cotizar: "Dolar", "Pesos" o "Real" (no distingue mayusculas/minusculas).</param>
+            <returns>La <see cref="T:MyRestfullApp.Models.ValorCotizacion"/> con los importes de compra y venta de la moneda solicitada.</returns>
+            <remarks>
+            Ruta: GET MyRestfullApp/Cotizacion/{moneda}.
+            Si la moneda no es soportada responde 501 Not Implemented;
+            si la cotizacion no esta habilitada (Pesos, Real) responde 401 Unauthorized.
+            </remarks>
+            <exception cref="T:System.NotImplementedException">Si la moneda no es ninguna de las soportadas.</exception>
+            <exception cref="T:System.UnauthorizedAccessException">Si la cotizacion de la moneda no esta habilitada.</exception>
         </member>
         <member name="T:MyRestfullApp.Controllers.HomeController">
             <summary>
-            
+            Controlador MVC que sirve las vistas HTML de la aplicacion,
+            incluida la pagina principal que da acceso a la API.
             </summary>
         </member>
         <member name="M:MyRestfullApp.Controllers.HomeController.Index">
             <summary>
             Pagina Principal
             </summary>
-            <returns></returns>
+            <returns>La vista <c>Index</c> de la pagina principal.</returns>
         </member>
         <member name="T:MyRestfullApp.Controllers.UsuariosController">
             <summary>
@@ -522,37 +572,63 @@
             <summary>
             Elimina el usuario indicado.
             </summary>
+            <param name="id">Identificador del usuario a eliminar.</param>
+            <remarks>Responde 204 No Content; si el id no existe la operacion no tiene efecto.</remarks>
         </member>
         <member name="M:MyRestfullApp.Controllers.UsuariosController.Get">
             <summary>
             Devuelve la lista de los usuarios.
             </summary>
+            <returns>Coleccion con todos los <see cref="T:MyRestfullApp.Models.Usuario"/> registrados.</returns>
         </member>
         <member name="M:MyRestfullApp.Controllers.UsuariosController.Get(System.Int32)">
             <summary>
             Devuelve informacion de un usuario en particular.
             </summary>
+            <param name="id">Identificador del usuario a consultar.</param>
+            <returns>El <see cref="T:MyRestfullApp.Models.Usuario"/> solicitado, o null si no existe.</returns>
         </member>
         <member name="M:MyRestfullApp.Controllers.UsuariosController.Post(MyRestfullApp.Models.Usuario)">
             <summary>
             Crea un nuevo usuario.
             </summary>
+            <param name="user">Datos del usuario a crear, recibidos en el cuerpo de la peticion.</param>
         </member>
         <member name="M:MyRestfullApp.Controllers.UsuariosController.Put(System.Int32,MyRestfullApp.Models.Usuario)">
             <summary>
             Modifica un usuario.
             </summary>
+            <param name="id">Identificador del usuario a modificar.</param>
+            <param name="user">Nuevos datos del usuario, recibidos en el cuerpo de la peticion.</param>
+            <remarks>Si el id no existe la operacion no tiene efecto.</remarks>
         </member>
         <member name="T:MyRestfullApp.Filters.CustomExceptionFilterAttribute">
             <summary>
             Filtro de Excepciones Personalizadas
+            Intercepta las excepciones no controladas de la Web API y las traduce
+            a respuestas HTTP con el codigo de estado correspondiente.
             </summary>
         </member>
         <member name="M:MyRestfullApp.Filters.CustomExceptionFilterAttribute.OnException(System.Web.Http.Filters.HttpActionExecutedContext)">
             <summary>
-            
+            Traduce las excepciones de la accion a respuestas HTTP:
+            NotImplementedException -> 501 Not Implemented;
+            UnauthorizedAccessException -> 401 Unauthorized.
+            Otras excepciones no son manejadas y continuan su propagacion normal.
             </summary>
-            <param name="context"></param>
+            <param name="context">Contexto de la accion ejecutada, con la excepcion lanzada y donde asignar la respuesta.</param>
+        </member>
+        <member name="T:MyRestfullApp.WebApiApplication">
+            <summary>
+            Punto de entrada de la aplicacion web (Global.asax).
+            En el arranque registra areas, configuracion Web API, filtros globales, rutas y bundles.
+            </summary>
+        </member>
+        <member name="M:MyRestfullApp.WebApiApplication.Application_Start">
+            <summary>
+            Se ejecuta una sola vez al iniciar la aplicacion: registra areas,
+            configuracion de la Web API, filtros globales, rutas MVC y bundles de recursos.
+            </summary>
         </member>
     </members>
 </doc>

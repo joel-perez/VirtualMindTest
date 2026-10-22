@@ -3,10 +3,19 @@ using System.Web.Optimization;
 
 namespace MyRestfullApp
 {
+    /// <summary>
+    /// Configuracion de los bundles de scripts y estilos de la aplicacion
+    /// (jQuery, Modernizr, Bootstrap y CSS del sitio).
+    /// </summary>
     public class BundleConfig
     {
         #region Methods
 
+        /// <summary>
+        /// Registra los bundles de scripts (jQuery, Modernizr, Bootstrap) y
+        /// estilos (bootstrap.css, site.css) utilizados por las vistas.
+        /// </summary>
+        /// <param name="bundles">Coleccion de bundles a la que se agregan los bundles de la aplicacion.</param>
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {

@@ -9,10 +9,18 @@ using System.Web.Routing;
 
 namespace MyRestfullApp
 {
+    /// <summary>
+    /// Punto de entrada de la aplicacion web (Global.asax).
+    /// En el arranque registra areas, configuracion Web API, filtros globales, rutas y bundles.
+    /// </summary>
     public class WebApiApplication : System.Web.HttpApplication
     {
         #region Methods
 
+        /// <summary>
+        /// Se ejecuta una sola vez al iniciar la aplicacion: registra areas,
+        /// configuracion de la Web API, filtros globales, rutas MVC y bundles de recursos.
+        /// </summary>
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();

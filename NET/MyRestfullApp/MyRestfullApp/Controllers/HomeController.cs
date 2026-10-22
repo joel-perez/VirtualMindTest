@@ -3,7 +3,8 @@
 namespace MyRestfullApp.Controllers
 {
     /// <summary>
-    /// 
+    /// Controlador MVC que sirve las vistas HTML de la aplicacion,
+    /// incluida la pagina principal que da acceso a la API.
     /// </summary>
     public class HomeController : Controller
     {
@@ -12,7 +13,7 @@ namespace MyRestfullApp.Controllers
         /// <summary>
         /// Pagina Principal
         /// </summary>
-        /// <returns></returns>
+        /// <returns>La vista <c>Index</c> de la pagina principal.</returns>
         public ActionResult Index()
         {
             ViewBag.Title = "Pagina Principal";

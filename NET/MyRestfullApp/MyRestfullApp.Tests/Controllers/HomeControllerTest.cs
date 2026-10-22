@@ -7,11 +7,17 @@ using MyRestfullApp.Controllers;
 
 namespace MyRestfullApp.Tests.Controllers
 {
+    /// <summary>
+    /// Pruebas unitarias del <see cref="HomeController"/>.
+    /// </summary>
     [TestClass]
     public class HomeControllerTest
     {
         #region Methods
 
+        /// <summary>
+        /// Verifica que la accion Index devuelve la vista principal con el titulo "Pagina Principal".
+        /// </summary>
         [TestMethod]
         public void Index()
         {

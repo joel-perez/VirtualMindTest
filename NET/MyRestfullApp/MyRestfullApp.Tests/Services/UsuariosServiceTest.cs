@@ -8,11 +8,18 @@ using MyRestfullApp.Services.Usuarios;
 
 namespace MyRestfullApp.Tests.Services
 {
+    /// <summary>
+    /// Pruebas unitarias del <see cref="UsuariosService"/>: CRUD completo de usuarios sobre la base de datos.
+    /// Requiere una base de datos con datos de prueba precargados (id 2 y 3 conocidos).
+    /// </summary>
     [TestClass]
     public class UsuariosServiceTest
     {
         #region Methods
 
+        /// <summary>
+        /// Verifica que ObtenerUsuarios devuelve al menos 3 usuarios incluyendo el usuario conocido.
+        /// </summary>
         [TestMethod]
         public void ObtenerUsuarios_DevuelveTodosLosUsuarios()
         {
@@ -25,6 +32,9 @@ namespace MyRestfullApp.Tests.Services
             Assert.IsTrue(result.Any(x => x.Email == "joperezr@gmail.com"));
         }
 
+        /// <summary>
+        /// Verifica que ObtenerUsuario por id devuelve el usuario correspondiente (id 3 = Messi).
+        /// </summary>
         [TestMethod]
         public void ObtenerUsuario_PorId_DevuelveElUsuario()
         {
@@ -36,6 +46,9 @@ namespace MyRestfullApp.Tests.Services
             Assert.AreEqual("Messi", result.Apellido);
         }
 
+        /// <summary>
+        /// Verifica que CrearUsuario persiste un usuario nuevo que luego puede recuperarse por email.
+        /// </summary>
         [TestMethod]
         public void CrearUsuario_AgregaUnUsuario()
         {
@@ -54,6 +67,9 @@ namespace MyRestfullApp.Tests.Services
             Assert.IsNotNull(creado);
         }
 
+        /// <summary>
+        /// Verifica que ModificarUsuario actualiza los datos del usuario existente (id 2).
+        /// </summary>
         [TestMethod]
         public void ModificarUsuario_ActualizaLosDatos()
         {
@@ -73,6 +89,9 @@ namespace MyRestfullApp.Tests.Services
             Assert.AreEqual("Juan Martin", modificado.Nombre);
         }
 
+        /// <summary>
+        /// Verifica que EliminarUsuario quita el usuario creado previamente (queda inaccesible por id).
+        /// </summary>
         [TestMethod]
         public void EliminarUsuario_QuitaElUsuario()
         {
